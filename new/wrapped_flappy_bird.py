@@ -97,7 +97,7 @@ class GameState:
 
         # pygame.event.pump()
 
-        reward = 0.1
+        reward = 0
 
         terminal = False
 
@@ -171,7 +171,7 @@ class GameState:
             self.appleonscreen = 0
             self.score = self.score + 1
             self.growsnake = self.growsnake + 1
-            reward = 100
+            reward = 1
         # elif self.growsnake > 0:
         #     self.growsnake = self.growsnake + 1
         #     if self.growsnake == self.snakegrowunit:
