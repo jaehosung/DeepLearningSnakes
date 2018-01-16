@@ -17,12 +17,15 @@ import pygame
 import pygame.surfarray as surfarray
 from pygame.locals import *
 from itertools import cycle
+import os,sys
+
+os.environ["SDL_VIDEODRIVER"]="dummy"
 
 
 counter = 0
 
 
-FPS = 100000
+FPS = 10000000
 
 
 
@@ -189,7 +192,7 @@ class GameState:
             reward = -1
         elif self.step > (WINSIZE[0]/SNAKESTEP)*(WINSIZE[1]/SNAKESTEP):
             print("step over", self.step)
-            reward = -0.5
+            reward = -0.8
         else:
             print("", self.step)
 
