@@ -91,6 +91,7 @@ class GameState:
         self.growsnake = 0  # added to grow tail by two each time
         self.snakegrowunit = 2  # added to grow tail by two each time
         self.applexy = [0,0]
+        self.step = 0
         DEATH = False
 
     def frame_step(self, input_actions):
@@ -171,7 +172,8 @@ class GameState:
             self.appleonscreen = 0
             self.score = self.score + 1
             self.growsnake = self.growsnake + 1
-            reward = 1
+            reward = 1 *len(self.snakelist)
+            self.step = 0
         # elif self.growsnake > 0:
         #     self.growsnake = self.growsnake + 1
         #     if self.growsnake == self.snakegrowunit:
@@ -182,11 +184,15 @@ class GameState:
 
         if self.snakedead:
             terminal = True
-            print("=DEATH")
+            print("=DEATH",len(self.snakelist))
             self.__init__()
             reward = -1
+        elif self.step > (WINSIZE[0]/SNAKESTEP)*(WINSIZE[1]/SNAKESTEP):
+            print("step over", self.step)
+            reward = -0.5
         else:
-            print("")
+            print("", self.step)
+
 
 
         test = self.growsnake
@@ -213,5 +219,5 @@ class GameState:
 
 
 
-
+        self.step = self.step+1
         return image_data, reward, terminal,len(self.snakelist)
