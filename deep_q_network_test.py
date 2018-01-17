@@ -17,10 +17,10 @@ GAMMA = 0.9 # decay rate of past observations
 # EXPLORE = 2000000. # frames over which to anneal epsilon
 
 OBSERVE = 32 # timesteps to observe before training
-EXPLORE = 32.# frames over which to anneal epsilon
+EXPLORE = 2000000.# frames over which to anneal epsilon
 
-FINAL_EPSILON = 0.0001 # final value of epsilon
-INITIAL_EPSILON = 0.0001 # starting value of epsilon
+FINAL_EPSILON = 1 # final value of epsilon
+INITIAL_EPSILON = 1 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
 FRAME_PER_ACTION = 1
@@ -126,7 +126,7 @@ def trainNetwork(s, readout, h_fc1, sess):
         action_index = 0
         if t % FRAME_PER_ACTION == 0:
             if random.random() <= epsilon:
-                print("----------Random Action----------")
+                #print("----------Random Action----------")
                 action_index = random.randrange(ACTIONS)
                 a_t[random.randrange(ACTIONS)] = 1
             else:
@@ -196,10 +196,13 @@ def trainNetwork(s, readout, h_fc1, sess):
             state = "explore"
         else:
             state = "train"
-
+        '''
         print("TIMESTEP", t, "/ STATE", state, \
             "/ EPSILON", epsilon, "/ ACTION", action_index, "length",length, "/ REWARD", r_t, \
             "/ Q_MAX %e" % np.max(readout_t), end = "")
+        '''
+        if t%10000 ==0:
+            print(state)
         # write info to files
 
 
