@@ -32,7 +32,7 @@ FPS = 1000000000000
 
 ######## CONSTANTS
 
-WINSIZE = [240, 240]
+WINSIZE = [480, 480]
 SCREENWIDTH  = WINSIZE[0]
 SCREENHEIGHT = WINSIZE[1]
 
@@ -65,6 +65,7 @@ LEN_MEAN = np.array([])
 
 prevDir = RIGHT
 
+_test = 1
 
 ######## ######## ########
 
@@ -187,19 +188,28 @@ class GameState:
             self.snakelist.pop()
 
         global LEN_MEAN
+        global _test
         if self.snakedead:
             terminal = True
             LEN_MEAN = np.append(LEN_MEAN ,len(self.snakelist))
             if(LEN_MEAN.shape[0]>1000):
-                LEN_MEAN = LEN_MEAN.delete(LEN_MEAN,0)	
-            print("=DEATH",round(np.mean(LEN_MEAN),2))
+                LEN_MEAN = np.delete(LEN_MEAN,0)	
+            print(WINSIZE,"=>", "avg : ","%.2f" %round(np.mean(LEN_MEAN),2),"MAX :", np.amax(LEN_MEAN),"MIN : ", np.amin(LEN_MEAN), "   " ,end = "")
+
+            _test = _test%9+1
+            for value in range(_test):
+                print(">",end = "")
+            for value in range(10-_test):
+                print("@",end = "")
+            print("")
             self.__init__()
             reward = -1
         elif self.step > (WINSIZE[0]/SNAKESTEP)*(WINSIZE[1]/SNAKESTEP):
-            print("step over", self.step)
+            #print("step over", self.step)
             reward = -0.8
         else:
-            print("", self.step)
+            _temp = 0
+            #print("", self.step)
 
 
 
@@ -222,7 +232,7 @@ class GameState:
 
         image_data = pygame.surfarray.array3d(pygame.display.get_surface())
         # pygame.display.update()
-        clock.tick(FPS)
+	#clock.tick(FPS)
 
 
 
