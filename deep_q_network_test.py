@@ -16,8 +16,8 @@ GAMMA = 0.9 # decay rate of past observations
 # OBSERVE = 100000 # timesteps to observe before training
 # EXPLORE = 2000000. # frames over which to anneal epsilon
 
-OBSERVE = 400000 # timesteps to observe before training
-EXPLORE = 200000.# frames over which to anneal epsilon
+OBSERVE = 32 # timesteps to observe before training
+EXPLORE = 32.# frames over which to anneal epsilon
 
 FINAL_EPSILON = 0.0001 # final value of epsilon
 INITIAL_EPSILON = 0.0001 # starting value of epsilon

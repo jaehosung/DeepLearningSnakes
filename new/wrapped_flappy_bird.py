@@ -61,6 +61,8 @@ Y_apple = WINSIZE[1] / SNAKESTEP
 TRUE = 1
 FALSE = 0
 
+LEN_MEAN = np.array([])
+
 prevDir = RIGHT
 
 
@@ -184,10 +186,13 @@ class GameState:
         else:
             self.snakelist.pop()
 
-
+        global LEN_MEAN
         if self.snakedead:
             terminal = True
-            print("=DEATH",len(self.snakelist))
+            LEN_MEAN = np.append(LEN_MEAN ,len(self.snakelist))
+            if(LEN_MEAN.shape[0]>1000):
+                LEN_MEAN = LEN_MEAN.delete(LEN_MEAN,0)	
+            print("=DEATH",round(np.mean(LEN_MEAN),2))
             self.__init__()
             reward = -1
         elif self.step > (WINSIZE[0]/SNAKESTEP)*(WINSIZE[1]/SNAKESTEP):
