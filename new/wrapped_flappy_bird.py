@@ -25,7 +25,7 @@ os.environ["SDL_VIDEODRIVER"]="dummy"
 counter = 0
 
 
-FPS = 10000000
+FPS = 1000000000000
 
 
 
