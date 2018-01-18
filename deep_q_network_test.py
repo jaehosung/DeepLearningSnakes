@@ -12,15 +12,15 @@ from collections import deque
 
 GAME = 'bird' # the name of the game being played for log files
 ACTIONS = 5 # number of valid actions
-GAMMA = 0.9 # decay rate of past observations
+GAMMA = 0.99 # decay rate of past observations
 # OBSERVE = 100000 # timesteps to observe before training
 # EXPLORE = 2000000. # frames over which to anneal epsilon
 
-OBSERVE = 32 # timesteps to observe before training
+OBSERVE = 1000000 # timesteps to observe before training
 EXPLORE = 2000000.# frames over which to anneal epsilon
 
-FINAL_EPSILON = 1 # final value of epsilon
-INITIAL_EPSILON = 1 # starting value of epsilon
+FINAL_EPSILON = 0.0001 # final value of epsilon
+INITIAL_EPSILON = 0.0001 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
 FRAME_PER_ACTION = 1
@@ -201,7 +201,8 @@ def trainNetwork(s, readout, h_fc1, sess):
             "/ EPSILON", epsilon, "/ ACTION", action_index, "length",length, "/ REWARD", r_t, \
             "/ Q_MAX %e" % np.max(readout_t), end = "")
         '''
-        if t%10000 ==0:
+
+        if t%1000 ==0:
             print(state)
         # write info to files
 
