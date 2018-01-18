@@ -85,8 +85,8 @@ screen.fill(BLACK)
 class GameState:
     def __init__(self):
         self.direction = RIGHT  # 1=up,2=right,3=down,4=left
-        self.snakexy = [SNAKESTEP, WINSIZE[1] / 2]
-        self.snakelist = [[300, 400], [280, 400], [260, 400]]
+        self.snakexy = [100, 20]
+        self.snakelist = [[100, 20], [80, 20], [60, 20]]
         self.counter = 0
         self.score = 0
         self.appleonscreen = 0
@@ -96,7 +96,7 @@ class GameState:
         self.gamepaused = 0
         self.growsnake = 0  # added to grow tail by two each time
         self.snakegrowunit = 2  # added to grow tail by two each time
-        self.applexy = [0,0]
+        self.applexy = [-20,-20]
         self.step = 0
         DEATH = False
 
@@ -140,7 +140,7 @@ class GameState:
 
         if self.direction == RIGHT:
             self.snakexy[0] = self.snakexy[0] + SNAKESTEP
-            if self.snakexy[0] > MAXX:
+            if self.snakexy[0] >= MAXX:
                 self.snakedead = TRUE
 
         elif self.direction == LEFT:
@@ -155,7 +155,7 @@ class GameState:
 
         elif self.direction == DOWN:
             self.snakexy[1] = self.snakexy[1] + SNAKESTEP
-            if self.snakexy[1] > MAXY:
+            if self.snakexy[1] >= MAXY:
                 self.snakedead = TRUE
 
         if len(self.snakelist) > 3 and self.snakelist.count(self.snakexy) > 0:

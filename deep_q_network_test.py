@@ -16,14 +16,14 @@ GAMMA = 0.9 # decay rate of past observations
 # OBSERVE = 100000 # timesteps to observe before training
 # EXPLORE = 2000000. # frames over which to anneal epsilon
 
-OBSERVE = 32 # timesteps to observe before training
-EXPLORE = 2000000.# frames over which to anneal epsilon
+OBSERVE = 100000 # timesteps to observe before training
+EXPLORE = 400000.# frames over which to anneal epsilon
 
 FINAL_EPSILON = 1 # final value of epsilon
 INITIAL_EPSILON = 1 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
-FRAME_PER_ACTION = 1
+FRAME_PER_ACTION = 5
 DEATH = True
 
 def weight_variable(shape):
@@ -202,7 +202,7 @@ def trainNetwork(s, readout, h_fc1, sess):
             "/ Q_MAX %e" % np.max(readout_t), end = "")
         '''
         if t%10000 ==0:
-            print(state)
+            print(state,"  ",t)
         # write info to files
 
 
