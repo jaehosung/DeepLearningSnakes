@@ -32,7 +32,7 @@ FPS = 1000000000000
 
 ######## CONSTANTS
 
-WINSIZE = [480, 480]
+WINSIZE = [120, 120]
 SCREENWIDTH  = WINSIZE[0]
 SCREENHEIGHT = WINSIZE[1]
 
@@ -85,8 +85,8 @@ screen.fill(BLACK)
 class GameState:
     def __init__(self):
         self.direction = RIGHT  # 1=up,2=right,3=down,4=left
-        self.snakexy = [100, 20]
-        self.snakelist = [[100, 20], [80, 20], [60, 20]]
+        self.snakexy = [60, 20]
+        self.snakelist = [[60, 20], [40, 20], [20, 20]]
         self.counter = 0
         self.score = 0
         self.appleonscreen = 0
@@ -192,7 +192,7 @@ class GameState:
         if self.snakedead:
             terminal = True
             LEN_MEAN = np.append(LEN_MEAN ,len(self.snakelist))
-            if(LEN_MEAN.shape[0]>1000):
+            if(LEN_MEAN.shape[0]>100):
                 LEN_MEAN = np.delete(LEN_MEAN,0)	
             print(WINSIZE,"=>", "avg : ","%.2f" %round(np.mean(LEN_MEAN),2),"MAX :", np.amax(LEN_MEAN),"MIN : ", np.amin(LEN_MEAN), "   " ,end = "")
 

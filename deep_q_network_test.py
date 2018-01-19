@@ -12,18 +12,18 @@ from collections import deque
 
 GAME = 'bird' # the name of the game being played for log files
 ACTIONS = 5 # number of valid actions
-GAMMA = 0.9 # decay rate of past observations
+GAMMA = 0.99 # decay rate of past observations
 # OBSERVE = 100000 # timesteps to observe before training
 # EXPLORE = 2000000. # frames over which to anneal epsilon
 
-OBSERVE = 100000 # timesteps to observe before training
-EXPLORE = 400000.# frames over which to anneal epsilon
+OBSERVE = 32 # timesteps to observe before training
+EXPLORE = 4000000.# frames over which to anneal epsilon
 
-FINAL_EPSILON = 1 # final value of epsilon
-INITIAL_EPSILON = 1 # starting value of epsilon
+FINAL_EPSILON = 0.001 # final value of epsilon
+INITIAL_EPSILON = 0.001 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
-FRAME_PER_ACTION = 5
+FRAME_PER_ACTION = 1
 DEATH = True
 
 def weight_variable(shape):
@@ -45,10 +45,10 @@ def createNetwork():
     W_conv1 = weight_variable([8, 8, 4, 32])
     b_conv1 = bias_variable([32])
 
-    W_conv2 = weight_variable([4, 4, 32, 64])
+    W_conv2 = weight_variable([8, 8, 32, 64])
     b_conv2 = bias_variable([64])
 
-    W_conv3 = weight_variable([3, 3, 64, 64])
+    W_conv3 = weight_variable([6, 6, 64, 64])
     b_conv3 = bias_variable([64])
 
     W_fc1 = weight_variable([1600, 512])
