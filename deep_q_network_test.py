@@ -17,7 +17,7 @@ GAMMA = 0.99 # decay rate of past observations
 # EXPLORE = 2000000. # frames over which to anneal epsilon
 
 OBSERVE = 32 # timesteps to observe before training
-EXPLORE = 4000000.# frames over which to anneal epsilon
+EXPLORE = 32.# frames over which to anneal epsilon
 
 FINAL_EPSILON = 0.0001 # final value of epsilon
 INITIAL_EPSILON = 0.0001 # starting value of epsilon
@@ -201,14 +201,11 @@ def trainNetwork(s, readout, h_fc1, sess):
             "/ EPSILON", epsilon, "/ ACTION", action_index, "length",length, "/ REWARD", r_t, \
             "/ Q_MAX %e" % np.max(readout_t), end = "")
         '''
-<<<<<<< HEAD
 
         if t%1000 ==0:
             print(state)
-=======
         if t%10000 ==0:
             print(state,"  ",t)
->>>>>>> d6d5ca776cd3bb7bdc61aacdbea0b02ebeab3421
         # write info to files
 
 
