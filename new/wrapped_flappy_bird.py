@@ -19,7 +19,7 @@ from pygame.locals import *
 from itertools import cycle
 import os,sys
 
-os.environ["SDL_VIDEODRIVER"]="dummy"
+#os.environ["SDL_VIDEODRIVER"]="dummy"
 
 
 counter = 0
@@ -40,6 +40,7 @@ WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
 RED = [255, 0, 0]
 GREEN = [0, 255, 0]
+BLUE = [0,0,255]
 
 BLOCKSIZE = [15, 15]
 
@@ -220,8 +221,11 @@ class GameState:
         # Clear the screen
         screen.fill(BLACK)
         # Output the array elements to the screen as rectangles ( the snake)
-        for element in self.snakelist:
-            pygame.draw.rect(screen, RED, Rect(element, BLOCKSIZE))
+        for i in range(len(self.snakelist)):
+            if i == 0:
+                pygame.draw.rect(screen, BLUE, Rect(self.snakelist[i],BLOCKSIZE))
+            else:
+                pygame.draw.rect(screen, RED, Rect(self.snakelist[i], BLOCKSIZE))
 
         # Draw the apple
         pygame.draw.rect(screen, GREEN, Rect(self.applexy, BLOCKSIZE))
