@@ -201,14 +201,11 @@ def trainNetwork(s, readout, h_fc1, sess):
             "/ EPSILON", epsilon, "/ ACTION", action_index, "length",length, "/ REWARD", r_t, \
             "/ Q_MAX %e" % np.max(readout_t), end = "")
         '''
-<<<<<<< HEAD
 
         if t%1000 ==0:
             print(state)
-=======
         if t%10000 ==0:
             print(state,"  ",t)
->>>>>>> d6d5ca776cd3bb7bdc61aacdbea0b02ebeab3421
         # write info to files
 
 
