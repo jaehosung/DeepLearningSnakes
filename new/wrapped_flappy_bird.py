@@ -205,8 +205,7 @@ class GameState:
             self.__init__()
             reward = -1
         elif self.step > (WINSIZE[0]/SNAKESTEP)*(WINSIZE[1]/SNAKESTEP):
-            #print("step over", self.step)
-            reward = -0.8
+            reward = self.step*-0.1
         else:
             _temp = 0
             #print("", self.step)
