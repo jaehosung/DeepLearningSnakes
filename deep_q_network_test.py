@@ -45,7 +45,7 @@ def createNetwork():
     W_conv1 = weight_variable([8, 8, 4, 32])
     b_conv1 = bias_variable([32])
 
-    W_conv2 = weight_variable([8, 8, 32, 64])
+    W_conv2 = weight_variable([10, 10, 32, 64])
     b_conv2 = bias_variable([64])
 
     W_conv3 = weight_variable([6, 6, 64, 64])

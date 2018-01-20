@@ -19,7 +19,7 @@ from pygame.locals import *
 from itertools import cycle
 import os,sys
 
-#os.environ["SDL_VIDEODRIVER"]="dummy"
+os.environ["SDL_VIDEODRIVER"]="dummy"
 
 
 counter = 0
