@@ -5,21 +5,26 @@ import tensorflow as tf
 import cv2
 import sys
 sys.path.append("game/")
-import wrapped_flappy_bird as game
+import snake as game 
 import random
 import numpy as np
 from collections import deque
 
-GAME = 'bird' # the name of the game being played for log files
-ACTIONS = 2 # number of valid actions
+GAME = 'snake' # the name of the game being played for log files
+ACTIONS = 5 # number of valid actions
 GAMMA = 0.99 # decay rate of past observations
-OBSERVE = 1000000 # timesteps to observe before training
-EXPLORE = 2000000. # frames over which to anneal epsilon
+# OBSERVE = 100000 # timesteps to observe before training
+# EXPLORE = 2000000. # frames over which to anneal epsilon
+
+OBSERVE = 32 # timesteps to observe before training
+EXPLORE = 32.# frames over which to anneal epsilon
+
 FINAL_EPSILON = 0.0001 # final value of epsilon
 INITIAL_EPSILON = 0.0001 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH = 32 # size of minibatch
 FRAME_PER_ACTION = 1
+DEATH = True
 
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev = 0.01)
@@ -40,10 +45,10 @@ def createNetwork():
     W_conv1 = weight_variable([8, 8, 4, 32])
     b_conv1 = bias_variable([32])
 
-    W_conv2 = weight_variable([4, 4, 32, 64])
+    W_conv2 = weight_variable([10, 10, 32, 64])
     b_conv2 = bias_variable([64])
 
-    W_conv3 = weight_variable([3, 3, 64, 64])
+    W_conv3 = weight_variable([6, 6, 64, 64])
     b_conv3 = bias_variable([64])
 
     W_fc1 = weight_variable([1600, 512])
@@ -96,7 +101,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     # get the first state by doing nothing and preprocess the image to 80x80x4
     do_nothing = np.zeros(ACTIONS)
     do_nothing[0] = 1
-    x_t, r_0, terminal = game_state.frame_step(do_nothing)
+    x_t, r_0, terminal, length = game_state.frame_step(do_nothing)
     x_t = cv2.cvtColor(cv2.resize(x_t, (80, 80)), cv2.COLOR_BGR2GRAY)
     ret, x_t = cv2.threshold(x_t,1,255,cv2.THRESH_BINARY)
     s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)
@@ -104,7 +109,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     # saving and loading networks
     saver = tf.train.Saver()
     sess.run(tf.global_variables_initializer())
-    checkpoint = tf.train.get_checkpoint_state("saved_networks")
+    checkpoint = tf.train.get_checkpoint_state("saved_newnetworks")
     if checkpoint and checkpoint.model_checkpoint_path:
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
@@ -121,7 +126,7 @@ def trainNetwork(s, readout, h_fc1, sess):
         action_index = 0
         if t % FRAME_PER_ACTION == 0:
             if random.random() <= epsilon:
-                print("----------Random Action----------")
+                #print("----------Random Action----------")
                 action_index = random.randrange(ACTIONS)
                 a_t[random.randrange(ACTIONS)] = 1
             else:
@@ -135,7 +140,7 @@ def trainNetwork(s, readout, h_fc1, sess):
             epsilon -= (INITIAL_EPSILON - FINAL_EPSILON) / EXPLORE
 
         # run the selected action and observe next state and reward
-        x_t1_colored, r_t, terminal = game_state.frame_step(a_t)
+        x_t1_colored, r_t, terminal, length = game_state.frame_step(a_t)
         x_t1 = cv2.cvtColor(cv2.resize(x_t1_colored, (80, 80)), cv2.COLOR_BGR2GRAY)
         ret, x_t1 = cv2.threshold(x_t1, 1, 255, cv2.THRESH_BINARY)
         x_t1 = np.reshape(x_t1, (80, 80, 1))
@@ -181,7 +186,7 @@ def trainNetwork(s, readout, h_fc1, sess):
 
         # save progress every 10000 iterations
         if t % 10000 == 0:
-            saver.save(sess, 'saved_networks/' + GAME + '-dqn', global_step = t)
+            saver.save(sess, 'saved_newnetworks/' + GAME + '-dqn', global_step = t)
 
         # print info
         state = ""
@@ -191,11 +196,19 @@ def trainNetwork(s, readout, h_fc1, sess):
             state = "explore"
         else:
             state = "train"
-
+        '''
         print("TIMESTEP", t, "/ STATE", state, \
-            "/ EPSILON", epsilon, "/ ACTION", action_index, "/ REWARD", r_t, \
-            "/ Q_MAX %e" % np.max(readout_t))
+            "/ EPSILON", epsilon, "/ ACTION", action_index, "length",length, "/ REWARD", r_t, \
+            "/ Q_MAX %e" % np.max(readout_t), end = "")
+        '''
+
+        if t%1000 ==0:
+            print(state)
+        if t%10000 ==0:
+            print(state,"  ",t)
         # write info to files
+
+
         '''
         if t % 10000 <= 100:
             a_file.write(",".join([str(x) for x in readout_t]) + '\n')
