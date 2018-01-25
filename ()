@@ -4,13 +4,12 @@ from __future__ import print_function
 import tensorflow as tf
 import cv2
 import sys
-sys.path.append("game/")
-import snake as game 
-import random
+sys.path.append("new/")
+import wrapped_flappy_bird as game import random
 import numpy as np
 from collections import deque
 
-GAME = 'snake' # the name of the game being played for log files
+GAME = 'bird' # the name of the game being played for log files
 ACTIONS = 5 # number of valid actions
 GAMMA = 0.99 # decay rate of past observations
 # OBSERVE = 100000 # timesteps to observe before training
