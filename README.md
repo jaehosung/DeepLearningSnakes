@@ -1,5 +1,7 @@
 # DeepLearningSnakes
 
+<img src="./images/snake.gif" width="250">
+
 
 ## Requirements
 - Python 3
