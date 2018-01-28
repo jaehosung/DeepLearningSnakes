@@ -1,6 +1,6 @@
 # DeepLearningSnakes
 
-<img src="./images/snake.gif" width="300">
+<img src="./images/snake_low.gif" width="300">
 https://youtu.be/iFKVXohPn0s
 
 ## Requirements
