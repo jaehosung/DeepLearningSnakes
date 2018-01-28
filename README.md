@@ -9,8 +9,14 @@
 - pygame
 - OpenCV-Python
 
+## How to Run?
+```
+git clone https://github.com/jaehosung/DeepLearningSnakes.git
+python deep_q_network.py
+```
 
 ## References
  - https://github.com/yenchenlin/DeepLearningFlappyBird
+ - https://www.pygame.org/project/857
  - https://hunkim.github.io/ml/
  
