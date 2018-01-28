@@ -1,6 +1,6 @@
 # DeepLearningSnakes
 
-<img src="./images/snake.gif" width="250">
+<img src="./images/snake.gif" width="300">
 
 
 ## Requirements
