@@ -1,5 +1,10 @@
 # DeepLearningSnakes
 
+## Introduction
+________________________________________________________
+A basic PyGame every beginner would like to program in the initial stage of learning game development with Python.
+Also, its quite intresting and give a feel of nostalgia.
+________________________________________________________
 <img src="./images/snake_low.gif" width="300">
 https://youtu.be/iFKVXohPn0s
 
